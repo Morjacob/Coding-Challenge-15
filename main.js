@@ -2,59 +2,63 @@ import { calculatePortfolioValue, getPortfolioAllocation } from './portfolio.js'
 import { Transaction } from './transaction.js';
 import { assets, getAssetById } from './asset.js';
 
-function displaySection(id, title, content) {
-    const section = document.getElementById(id);
-    section.innerHTML = `
-        <h2>${title}</h2>
-        ${content}
-    `;
-}
+console.log('Assets:', assets);
+console.log('Get Asset by ID (ID = 1):', getAssetById(1));
 
 function displayPortfolio() {
     const totalValue = calculatePortfolioValue();
+    const portfolioData = document.getElementById('portfolio-data');
+    
+    const totalValueElement = document.createElement('p');
+    totalValueElement.innerHTML = `<strong>Total Portfolio Value:</strong> $${totalValue.toFixed(2)}`;
+    portfolioData.appendChild(totalValueElement);
+
     const allocation = getPortfolioAllocation();
+    const allocationDetails = allocation.map(asset => {
+        const allocationElement = document.createElement('p');
+        allocationElement.innerHTML = `<strong>${asset.name}:</strong> ${asset.allocation.toFixed(2)}%`;
+        return allocationElement;
+    });
 
-    const allocationDetails = allocation.map(asset => 
-        `<p><strong>${asset.name}:</strong> ${asset.allocation.toFixed(2)}%</p>`
-    ).join('');
 
-    displaySection('portfolio-data', 'Initial Portfolio Information', `
-        <p><strong>Total Portfolio Value:</strong> $${totalValue.toFixed(2)}</p>
-        <h3>Portfolio Allocation:</h3>
-        ${allocationDetails}
-    `);
+    allocationDetails.forEach(element => portfolioData.appendChild(element));
 }
 
 function displayTransaction(transaction) {
-    const transactionDetails = `
-        <p><strong>Transaction:</strong> ${transaction.quantity} of ${transaction.asset.name} (${transaction.type})</p>
-    `;
-    displaySection('transaction-details', 'Transaction Details', transactionDetails);
+    const transactionDetails = document.getElementById('transaction-details');
+    
+
+    const transactionElement = document.createElement('p');
+    transactionElement.innerHTML = `<strong>Transaction:</strong> ${transaction.getTransactionDetails()}`;
+    transactionDetails.appendChild(transactionElement);
 }
 
 function displayUpdatedPortfolio() {
     const totalValue = calculatePortfolioValue();
+    const updatedPortfolioInfo = document.getElementById('updated-portfolio-info');
+    
+   
+    const updatedValueElement = document.createElement('p');
+    updatedValueElement.innerHTML = `<strong>Updated Portfolio Value:</strong> $${totalValue.toFixed(2)}`;
+    updatedPortfolioInfo.appendChild(updatedValueElement);
+
     const allocation = getPortfolioAllocation();
+    const updatedAllocationDetails = allocation.map(asset => {
+        const allocationElement = document.createElement('p');
+        allocationElement.innerHTML = `<strong>${asset.name}:</strong> ${asset.allocation.toFixed(2)}%`;
+        return allocationElement;
+    });
 
-    const updatedAllocationDetails = allocation.map(asset => 
-        `<p><strong>${asset.name}:</strong> ${asset.allocation.toFixed(2)}%</p>`
-    ).join('');
 
-    displaySection('updated-portfolio-info', 'Updated Portfolio Information', `
-        <p><strong>Updated Portfolio Value:</strong> $${totalValue.toFixed(2)}</p>
-        <h3>Updated Portfolio Allocation:</h3>
-        ${updatedAllocationDetails}
-    `);
+    updatedAllocationDetails.forEach(element => updatedPortfolioInfo.appendChild(element));
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-
+    console.log("Initial Portfolio:");
     displayPortfolio();
-
 
     const transaction1 = new Transaction(1, 'buy', 20);
     const transaction2 = new Transaction(2, 'sell', 10);
-
 
     console.log(`Transaction 1: ${transaction1.quantity} of ${transaction1.asset.name} (${transaction1.type})`);
     console.log(`Transaction 2: ${transaction2.quantity} of ${transaction2.asset.name} (${transaction2.type})`);
@@ -65,10 +69,4 @@ document.addEventListener("DOMContentLoaded", () => {
     displayTransaction(transaction2);
     displayUpdatedPortfolio();
 });
-
-console.log('Assets:', assets);
-console.log('Get Asset by ID (ID = 1):', getAssetById(1));
-
-
-
 
