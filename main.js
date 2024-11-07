@@ -4,6 +4,9 @@ import { calculatePortfolioValue, getPortfolioAllocation } from './portfolio.js'
 import { Transaction } from './transaction.js';
 import { assets, getAssetById } from './asset.js';
 
+console.log('Assets:', assets);
+console.log('Get Asset by ID (ID = 1):', getAssetById(1));
+
 
 function displayPortfolio() {
     const totalValue = calculatePortfolioValue();
