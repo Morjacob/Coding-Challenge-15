@@ -2,16 +2,17 @@ import { calculatePortfolioValue, getPortfolioAllocation } from './portfolio.js'
 import { Transaction } from './transaction.js';
 import { assets, getAssetById } from './asset.js';
 
-console.log('Assets:', assets);
-console.log('Get Asset by ID (ID = 1):', getAssetById(1));
-
 
 const updatePortfolioDisplay = () => {
     const portfolioData = document.getElementById('portfolio-data');
-    
- 
+    if (!portfolioData) {
+        console.error('Element with id "portfolio-data" not found!');
+        return;
+    }
+
+
     portfolioData.innerHTML = '';
-    
+
     const allocation = getPortfolioAllocation();
     
 
@@ -29,7 +30,11 @@ const updatePortfolioDisplay = () => {
 
 const displayTransaction = (transaction) => {
     const transactionDetails = document.getElementById('transaction-details');
-    
+    if (!transactionDetails) {
+        console.error('Element with id "transaction-details" not found!');
+        return;
+    }
+
 
     const transactionElement = document.createElement('p');
     transactionElement.textContent = `Transaction: ${transaction.getTransactionDetails()}`;
@@ -39,7 +44,11 @@ const displayTransaction = (transaction) => {
 
 const updateUpdatedPortfolioDisplay = () => {
     const updatedPortfolioInfo = document.getElementById('updated-portfolio-info');
-    
+    if (!updatedPortfolioInfo) {
+        console.error('Element with id "updated-portfolio-info" not found!');
+        return;
+    }
+
 
     updatedPortfolioInfo.innerHTML = '';
 
@@ -59,21 +68,22 @@ const updateUpdatedPortfolioDisplay = () => {
 
 document.addEventListener("DOMContentLoaded", () => {
     console.log("Initial Portfolio:");
-    updatePortfolioDisplay(); 
 
-    
+
+    updatePortfolioDisplay();  
+
+
     const transaction1 = new Transaction(1, 'buy', 20);
     const transaction2 = new Transaction(2, 'sell', 10);
-
 
     console.log(`Transaction 1: ${transaction1.quantity} of ${transaction1.asset.name} (${transaction1.type})`);
     console.log(`Transaction 2: ${transaction2.quantity} of ${transaction2.asset.name} (${transaction2.type})`);
 
-
+  
     displayTransaction(transaction1);
     updateUpdatedPortfolioDisplay();  
 
     displayTransaction(transaction2);
     updateUpdatedPortfolioDisplay();  
 });
-
+console.log('Assets:', assets); console.log('Get Asset by ID (ID = 1):', getAssetById(1));
