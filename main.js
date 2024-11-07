@@ -75,9 +75,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const transaction1 = new Transaction(1, 'buy', 20);
     const transaction2 = new Transaction(2, 'sell', 10);
 
-    console.log(`Transaction 1: ${transaction1.quantity} of ${transaction1.asset.name} (${transaction1.type})`);
-    console.log(`Transaction 2: ${transaction2.quantity} of ${transaction2.asset.name} (${transaction2.type})`);
-
   
     displayTransaction(transaction1);
     updateUpdatedPortfolioDisplay();  
