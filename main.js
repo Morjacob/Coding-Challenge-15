@@ -11,7 +11,6 @@ const updatePortfolioDisplay = () => {
     }
 
 
-    portfolioData.innerHTML = '';
 
     const allocation = getPortfolioAllocation();
     
@@ -50,7 +49,7 @@ const updateUpdatedPortfolioDisplay = () => {
     }
 
 
-    updatedPortfolioInfo.innerHTML = '';
+   
 
     const allocation = getPortfolioAllocation();
 
