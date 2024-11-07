@@ -50,8 +50,6 @@ const updateUpdatedPortfolioDisplay = () => {
     }
 
 
-   
-
     const allocation = getPortfolioAllocation();
 
 
